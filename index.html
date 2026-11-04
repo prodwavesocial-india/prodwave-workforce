@@ -1,0 +1,963 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prodwave | Workforce Management</title>
+
+<style>
+:root {
+    --primary: #635bff;
+    --dark: #111827;
+    --muted: #64748b;
+    --light: #f5f7fb;
+    --border: #e5e7eb;
+    --green: #16a34a;
+    --red: #dc2626;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--light);
+    color: var(--dark);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    background: #fff;
+    padding: 15px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 10px rgba(0,0,0,.04);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.company-logo {
+    width: 58px;
+    height: 58px;
+    object-fit: contain;
+}
+
+.brand-name {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.brand-subtitle {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-top: 4px;
+}
+
+.header-tag {
+    color: var(--primary);
+    background: #eeedff;
+    padding: 9px 15px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.container {
+    width: 92%;
+    max-width: 1150px;
+    margin: 30px auto 100px;
+}
+
+.welcome-card {
+    background: linear-gradient(120deg, #24215b, #635bff);
+    color: white;
+    border-radius: 18px;
+    padding: 28px;
+    margin-bottom: 24px;
+}
+
+.welcome-card h1 {
+    margin: 0 0 8px;
+    font-size: 26px;
+}
+
+.welcome-card p {
+    margin: 0;
+    opacity: .85;
+    line-height: 1.6;
+}
+
+.employee-input {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    max-width: 500px;
+}
+
+.employee-input input {
+    flex: 1;
+    min-width: 0;
+    padding: 13px 15px;
+    border: 0;
+    border-radius: 9px;
+    outline: none;
+    font-size: 14px;
+}
+
+.employee-input button {
+    border: 0;
+    background: #fff;
+    color: #3831a4;
+    font-weight: bold;
+    padding: 0 20px;
+    border-radius: 9px;
+    cursor: pointer;
+}
+
+.section-title {
+    font-size: 19px;
+    margin: 28px 0 15px;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: 0 3px 12px rgba(0,0,0,.025);
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.stat-value {
+    font-size: 23px;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
+
+.stat-note {
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 7px;
+}
+
+.attendance-card,
+.history-card,
+.quick-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 22px;
+    margin-top: 20px;
+}
+
+.attendance-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 18px;
+}
+
+.attendance-btn {
+    border: 0;
+    border-radius: 11px;
+    padding: 17px;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.attendance-btn:hover,
+.action-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(.96);
+}
+
+.check-in {
+    background: var(--green);
+}
+
+.check-out {
+    background: var(--red);
+}
+
+.attendance-status {
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.quick-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.action-btn {
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    padding: 17px 12px;
+    border-radius: 11px;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--dark);
+    font-weight: bold;
+    font-size: 13px;
+    transition: .2s;
+}
+
+.action-btn span {
+    display: block;
+    font-size: 23px;
+    margin-bottom: 8px;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 9px;
+    font-size: 13px;
+}
+
+.history-item strong {
+    color: var(--dark);
+}
+
+.history-item small {
+    color: var(--muted);
+    text-align: right;
+}
+
+.empty-history {
+    color: var(--muted);
+    font-size: 13px;
+    text-align: center;
+    padding: 20px 5px;
+}
+
+.motivation {
+    text-align: center;
+    padding: 25px 15px;
+    margin-top: 25px;
+}
+
+.motivation h2 {
+    font-size: 23px;
+    margin: 0 0 9px;
+}
+
+.motivation p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+footer {
+    text-align: center;
+    padding: 22px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* FLOATING LIVE CLOCK */
+
+.floating-clock {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 9999;
+    background: #111827;
+    color: #fff;
+    padding: 12px 17px;
+    border-radius: 13px;
+    text-align: center;
+    min-width: 125px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.3);
+    border: 1px solid rgba(255,255,255,.15);
+    font-family: Arial, sans-serif;
+}
+
+#liveTime {
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+#liveDate {
+    font-size: 11px;
+    margin-top: 5px;
+    color: #a7f3d0;
+    letter-spacing: 1px;
+}
+
+/* MOBILE RESPONSIVE */
+
+@media (max-width: 650px) {
+
+    header {
+        padding: 12px 4%;
+    }
+
+    .company-logo {
+        width: 45px;
+        height: 45px;
+    }
+
+    .brand-name {
+        font-size: 17px;
+    }
+
+    .brand-subtitle {
+        font-size: 8px;
+    }
+
+    .header-tag {
+        font-size: 10px;
+        padding: 7px 9px;
+    }
+
+    .container {
+        width: 92%;
+        margin-top: 20px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .welcome-card {
+        padding: 21px;
+    }
+
+    .welcome-card h1 {
+        font-size: 22px;
+    }
+
+    .floating-clock {
+        right: 10px;
+        bottom: 10px;
+        min-width: 110px;
+        padding: 9px 12px;
+    }
+
+    #liveTime {
+        font-size: 18px;
+        letter-spacing: 1px;
+    }
+
+    #liveDate {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 360px) {
+    .attendance-buttons,
+    .quick-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="brand">
+        <img
+            class="company-logo"
+            src="https://user51402.na.imgto.link/public/20261104/81c692018561d0d67ab47b64-whatsapp-image-2026-11-04-at-12-36-13-pm.avif"
+            alt="Prodwave Logo"
+        >
+        <div>
+            <div class="brand-name">PRODWAVE</div>
+            <div class="brand-subtitle">WORKFORCE MANAGEMENT</div>
+        </div>
+    </div>
+
+    <div class="header-tag">EMPLOYEE PORTAL</div>
+</header>
+
+<main class="container">
+
+    <section class="welcome-card">
+        <h1>Welcome to Prodwave Workforce </h1>
+        <p>Simplifying attendance, empowering productivity, and tracking your progress every day.</p>
+
+        <div class="employee-input">
+            <input
+                type="text"
+                id="employeeName"
+                placeholder="Enter your employee name"
+                maxlength="60"
+            >
+            <button type="button" onclick="saveName()">SAVE</button>
+        </div>
+    </section>
+
+    <h2 class="section-title">Your Attendance Dashboard</h2>
+
+    <section class="dashboard-grid">
+
+        <div class="stat-card">
+            <div class="stat-label">EMPLOYEE NAME</div>
+            <div class="stat-value" id="displayName">Not set</div>
+            <div class="stat-note">Your saved employee profile</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">LAST ATTENDANCE ACTION</div>
+            <div class="stat-value" id="lastAction">--</div>
+            <div class="stat-note" id="lastActionTime">No activity yet</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">TOTAL WORKING HOURS</div>
+            <div class="stat-value" id="workingHours">0h 0m</div>
+            <div class="stat-note">Based on recorded check-in/out times</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">ATTENDANCE STATUS</div>
+            <div class="stat-value" id="attendanceStatus">Not checked in</div>
+            <div class="stat-note">Current local attendance status</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">TOTAL ATTENDANCE TAPS</div>
+            <div class="stat-value" id="tapCount">0</div>
+            <div class="stat-note">Check-in and check-out actions</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">CURRENT SESSION</div>
+            <div class="stat-value" id="currentSession">--</div>
+            <div class="stat-note">Time since your latest check-in</div>
+        </div>
+
+    </section>
+
+    <section class="attendance-card">
+        <h2 class="section-title" style="margin-top:0">
+            Mark Your Attendance
+        </h2>
+
+        <p style="color:#64748b;font-size:13px;line-height:1.6">
+            Please select the appropriate action when starting or completing your workday.
+        </p>
+
+        <div class="attendance-buttons">
+
+            <button
+                type="button"
+                class="attendance-btn check-in"
+                onclick="markAttendance('CHECK IN')"
+            >
+                ✓ CHECK IN
+            </button>
+
+            <button
+                type="button"
+                class="attendance-btn check-out"
+                onclick="markAttendance('CHECK OUT')"
+            >
+                ↗ CHECK OUT
+            </button>
+
+        </div>
+
+        <div class="attendance-status" id="attendanceMessage">
+            Your attendance status will appear here.
+        </div>
+    </section>
+
+    <section class="quick-card">
+        <h2 class="section-title" style="margin-top:0">
+            Quick Actions
+        </h2>
+
+        <div class="quick-grid">
+
+            <a
+                class="action-btn"
+                href="https://forms.gle/usJTL3dGYZZs5tAW7"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <span>📋</span>
+                Daily Login Update
+            </a>
+
+            <a
+                class="action-btn"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSdAn7BgzKPDymr-4cHo73TgVrMSYrNr-r_qcaE4m0y2oTN89A/viewform"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <span>🤝</span>
+                Client Onboarding
+            </a>
+
+            <a
+                class="action-btn"
+                href="https://forms.gle/6ruDAtxJ4U6mQjr97"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <span>👤</span>
+                Employee Onboarding
+            </a>
+
+            <a
+                class="action-btn"
+                href="https://forms.gle/ib2s7vcHMmdFKiEk9"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <span>⭐</span>
+                Client Feedback
+            </a>
+
+        </div>
+    </section>
+
+    <section class="history-card">
+        <h2 class="section-title" style="margin-top:0">
+            Attendance History
+        </h2>
+
+        <div id="historyList" class="history-list">
+            <div class="empty-history">
+                Your journey starts with your first check-in. Make today count!
+            </div>
+        </div>
+    </section>
+
+    <section class="motivation">
+        <h2>Future CEOs in Motion 🚀</h2>
+        <p>
+            Every great leader starts by showing up.
+            Your journey to the top begins today.
+        </p>
+    </section>
+
+</main>
+
+<footer>
+    © <span id="footerYear"></span> Prodwave. All rights reserved.
+    <br>
+    Workforce Management Portal
+</footer>
+
+
+<!-- FLOATING LIVE CLOCK ONLY -->
+
+<div id="floatingClock" class="floating-clock">
+    <div id="liveTime">00:00:00</div>
+    <div id="liveDate">00/00/0000</div>
+</div>
+
+
+<script>
+
+// ======================================
+// PRODWAVE WORKFORCE SETTINGS
+// ======================================
+
+const ATTENDANCE_FORM_URL =
+"https://docs.google.com/forms/d/e/1FAIpQLSfB1_3jmg4qFukT9LY5fB70pn0n05-xbLktMSPVlwLo2VzFmA/viewform";
+
+const STORAGE_KEY = "prodwaveWorkforceData";
+
+
+// ======================================
+// INITIAL DATA
+// ======================================
+
+function getDefaultData() {
+    return {
+        name: "",
+        lastAction: "",
+        lastActionTime: "",
+        tapCount: 0,
+        history: [],
+        checkInTime: null,
+        totalWorkedMs: 0
+    };
+}
+
+function loadData() {
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+
+        if (!saved) {
+            return getDefaultData();
+        }
+
+        const parsed = JSON.parse(saved);
+
+        return {
+            ...getDefaultData(),
+            ...parsed,
+            history: Array.isArray(parsed.history)
+                ? parsed.history
+                : []
+        };
+
+    } catch (error) {
+        return getDefaultData();
+    }
+}
+
+let attendanceData = loadData();
+
+function saveData() {
+    try {
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(attendanceData)
+        );
+    } catch (error) {
+        console.error("Unable to save attendance data.", error);
+    }
+}
+
+
+// ======================================
+// EMPLOYEE NAME
+// ======================================
+
+function saveName() {
+
+    const input =
+        document.getElementById("employeeName");
+
+    const name = input.value.trim();
+
+    if (!name) {
+        alert("Please enter your employee name.");
+        return;
+    }
+
+    attendanceData.name = name;
+
+    saveData();
+    renderDashboard();
+
+    document.getElementById("attendanceMessage").textContent =
+        "Employee name saved successfully.";
+}
+
+
+// ======================================
+// ATTENDANCE CHECK-IN / CHECK-OUT
+// ======================================
+
+function markAttendance(action) {
+
+    if (!attendanceData.name) {
+
+        alert("Please enter and save your employee name first.");
+
+        document.getElementById("employeeName").focus();
+
+        return;
+    }
+
+    const now = new Date();
+    const timestamp = now.getTime();
+
+    if (action === "CHECK IN") {
+
+        if (attendanceData.checkInTime === null) {
+            attendanceData.checkInTime = timestamp;
+        }
+
+        attendanceData.lastAction = "CHECK IN";
+        attendanceData.lastActionTime = now.toISOString();
+        attendanceData.tapCount++;
+
+        attendanceData.history.unshift({
+            action: "CHECK IN",
+            time: now.toISOString()
+        });
+
+        document.getElementById("attendanceMessage").textContent =
+            "Check-in recorded locally. Opening attendance form...";
+
+    } else if (action === "CHECK OUT") {
+
+        if (attendanceData.checkInTime !== null) {
+
+            const duration =
+                timestamp - attendanceData.checkInTime;
+
+            if (duration > 0) {
+                attendanceData.totalWorkedMs += duration;
+            }
+
+            attendanceData.checkInTime = null;
+        }
+
+        attendanceData.lastAction = "CHECK OUT";
+        attendanceData.lastActionTime = now.toISOString();
+        attendanceData.tapCount++;
+
+        attendanceData.history.unshift({
+            action: "CHECK OUT",
+            time: now.toISOString()
+        });
+
+        document.getElementById("attendanceMessage").textContent =
+            "Check-out recorded locally. Opening attendance form...";
+    }
+
+    attendanceData.history =
+        attendanceData.history.slice(0, 30);
+
+    saveData();
+    renderDashboard();
+
+    // Both attendance buttons open the same Google Form.
+    window.location.href = ATTENDANCE_FORM_URL;
+}
+
+
+// ======================================
+// TIME FORMATTING
+// ======================================
+
+function formatDuration(milliseconds) {
+
+    const totalMinutes =
+        Math.floor(milliseconds / 60000);
+
+    const hours =
+        Math.floor(totalMinutes / 60);
+
+    const minutes =
+        totalMinutes % 60;
+
+    return hours + "h " + minutes + "m";
+}
+
+function formatSession(milliseconds) {
+
+    const totalSeconds =
+        Math.max(0, Math.floor(milliseconds / 1000));
+
+    const hours =
+        Math.floor(totalSeconds / 3600);
+
+    const minutes =
+        Math.floor((totalSeconds % 3600) / 60);
+
+    const seconds =
+        totalSeconds % 60;
+
+    return [
+        String(hours).padStart(2, "0"),
+        String(minutes).padStart(2, "0"),
+        String(seconds).padStart(2, "0")
+    ].join(":");
+}
+
+function formatDateTime(value) {
+
+    if (!value) {
+        return "--";
+    }
+
+    const date = new Date(value);
+
+    if (isNaN(date.getTime())) {
+        return "--";
+    }
+
+    return date.toLocaleString();
+}
+
+
+// ======================================
+// DASHBOARD RENDERING
+// ======================================
+
+function renderDashboard() {
+
+    document.getElementById("displayName").textContent =
+        attendanceData.name || "Not set";
+
+    const nameInput =
+        document.getElementById("employeeName");
+
+    if (document.activeElement !== nameInput) {
+        nameInput.value = attendanceData.name || "";
+    }
+
+    document.getElementById("lastAction").textContent =
+        attendanceData.lastAction || "--";
+
+    document.getElementById("lastActionTime").textContent =
+        attendanceData.lastActionTime
+            ? formatDateTime(attendanceData.lastActionTime)
+            : "No activity yet";
+
+    document.getElementById("tapCount").textContent =
+        attendanceData.tapCount || 0;
+
+    const isCheckedIn =
+        attendanceData.checkInTime !== null;
+
+    document.getElementById("attendanceStatus").textContent =
+        isCheckedIn ? "Checked In" : "Not checked in";
+
+    document.getElementById("workingHours").textContent =
+        formatDuration(attendanceData.totalWorkedMs || 0);
+
+    if (isCheckedIn) {
+
+        const sessionDuration =
+            Date.now() - attendanceData.checkInTime;
+
+        document.getElementById("currentSession").textContent =
+            formatSession(sessionDuration);
+
+        document.getElementById("workingHours").textContent =
+            formatDuration(
+                attendanceData.totalWorkedMs + sessionDuration
+            );
+
+    } else {
+
+        document.getElementById("currentSession").textContent =
+            "--";
+    }
+
+    renderHistory();
+}
+
+
+// ======================================
+// ATTENDANCE HISTORY
+// ======================================
+
+function renderHistory() {
+
+    const historyList =
+        document.getElementById("historyList");
+
+    historyList.innerHTML = "";
+
+    if (!attendanceData.history.length) {
+
+        historyList.innerHTML =
+            '<div class="empty-history">' +
+            'Your journey starts with your first check-in. Make today count!' +
+            '</div>';
+
+        return;
+    }
+
+    attendanceData.history.slice(0, 8).forEach(record => {
+
+        const item = document.createElement("div");
+        item.className = "history-item";
+
+        const action = document.createElement("strong");
+        action.textContent = record.action;
+
+        const time = document.createElement("small");
+        time.textContent = formatDateTime(record.time);
+
+        item.appendChild(action);
+        item.appendChild(time);
+
+        historyList.appendChild(item);
+    });
+}
+
+
+// ======================================
+// LIVE FLOATING CLOCK
+// ======================================
+
+function updateFloatingClock() {
+
+    const now = new Date();
+
+    const time = [
+        String(now.getHours()).padStart(2, "0"),
+        String(now.getMinutes()).padStart(2, "0"),
+        String(now.getSeconds()).padStart(2, "0")
+    ].join(":");
+
+    const date = [
+        String(now.getDate()).padStart(2, "0"),
+        String(now.getMonth() + 1).padStart(2, "0"),
+        now.getFullYear()
+    ].join("/");
+
+    document.getElementById("liveTime").textContent =
+        time;
+
+    document.getElementById("liveDate").textContent =
+        date;
+}
+
+
+// ======================================
+// INITIALIZE PAGE
+// ======================================
+
+document.getElementById("footerYear").textContent =
+    new Date().getFullYear();
+
+renderDashboard();
+updateFloatingClock();
+
+setInterval(function() {
+
+    updateFloatingClock();
+    renderDashboard();
+
+}, 1000);
+
+</script>
+
+</body>
+</html>
